@@ -82,17 +82,35 @@
                             echo '<pre>';
                         }
                         if (isset($_GET['concatenation'])){
-                            print_r($table);
-                            echo '<pre>
-                                <p>===>Construction d\'une phrase avec le contenu du tableau</p>
-                                </pre>'; 
+                            echo '<p>===>Construction d\'une phrase avec le contenu du tableau</p>'; 
                                 $civility = $civility = 'Homme' ? 'M' : 'Mme';
-                                echo $civility.' '.$table['first_name'].' '.$table['last_name'];
-                                echo "j'ai".' '.$table['age'].' '.'ans et je mesure'.' '.$table['size'].'m';
-                        }
-                    ?>
+                                echo 
+                                $civility.' '.$table['first_name'].' '.$table['last_name'];
+                                echo '<pre></pre>';
+                                echo
+                                "j'ai".' '.$table['age'].' '.'ans et je mesure'.' '.$table['size'].'m';
 
-                    
+                            echo '<p>===>Construction d\'une phrase après MAJ du tableau</p>';
+                                $civility = $civility = 'Homme' ? 'M' : 'Mme';
+                                $table['first_name']=ucwords($table['first_name']);
+                                $table['last_name']=strtoupper($table['last_name']);
+                                echo 
+                                $civility.' '.$table['first_name'].' '.$table['last_name'];
+                                echo '<pre></pre>';
+                                echo
+                                "j'ai".' '.$table['age'].' '.'ans et je mesure'.' '.$table['size'].'m';
+
+                                echo '<p>===>Affichage d\'une virgule à la place du point pour la taille</p>';
+                                $civility = $civility = 'Homme' ? 'M' : 'Mme';
+                                $table['size'] = str_replace('.',',',$table['size']);
+                                echo 
+                                $civility.' '.$table['first_name'].' '.$table['last_name'];
+                                echo '<pre></pre>';
+                                echo
+                                "j'ai".' '.$table['age'].' '.'ans et je mesure'.' '.$table['size'].'m';
+                        }
+
+                    ?>    
                 </section>
             </div>
             
