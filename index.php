@@ -64,6 +64,9 @@
                         elseif(isset($_GET['concatenation'])){
                             echo ' <h1 class="text-center">Concaténation</h1>';
                         }
+                        elseif(isset($_GET['boucle'])){
+                            echo ' <h1 class="text-center">Boucle</h1>';
+                        }
                         else{
                             echo '<a role="button" class="btn btn-primary btn-lg" href="index.php?add">Ajouter des données</a>';
                         }
@@ -110,6 +113,13 @@
                                 "j'ai".' '.$table['age'].' '.'ans et je mesure'.' '.$table['size'].'m';
                         }
 
+                        if (isset($_GET['boucle'])){
+                            $ligne=0;
+                            foreach ($table as $key => $value){
+                                echo 'à la ligne n°'.' '.$ligne.' '.'correspont la clé'.' '.$key.' '.'et contient'.' '.$value.'<pre></pre>';
+                                $ligne=$ligne+1;
+                            }
+                        }
                     ?>    
                 </section>
             </div>
