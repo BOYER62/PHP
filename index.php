@@ -120,12 +120,25 @@
                                 $ligne=$ligne+1;
                             }
                         }
+
+                        if (isset($_GET['function'])){
+                            function readTable()
+                                {
+                                $ligne=0;
+                                foreach ($table as $key => $value){
+                                    echo 'à la ligne n°'.' '.$ligne.' '.'correspont la clé'.' '.$key.' '.'et contient'.' '.$value.'<pre></pre>';
+                                    $ligne=$ligne+1;
+                                    }
+                                }
+                            readTable();    
+                            }
                     ?>    
                 </section>
             </div>
             
             <?php
                 include 'includes/footer.inc.html';
+                
             ?>
         </div>
     </body>
