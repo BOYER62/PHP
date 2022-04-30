@@ -1,9 +1,9 @@
 <form action="index.php" method="post">
-<p class="h1 text-center">
+  <p class="h1 text-center">
     Ajouter des données
-</p>
+  </p>
 
-<div class="form-group">
+  <div class="form-group">
     <label class="col-form-label mt-4" for="inputDefault"></label>
     <input type="text" class="form-control" name="first_name" placeholder="Prénom" id="inputDefault">
   </div>
@@ -26,29 +26,24 @@
     </div>
   </div>
   
-    <fieldset class="form-group">
-        <div class="row">
-        <legend class="mt-4"></legend>
+  <fieldset class="form-group">
+    <div class="row">
+      <legend class="mt-4"></legend>
         <div class="form-check col-3">
-            <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="civility" id="optionsRadios1" value="Femme" required>
-                Femme
-            </label>
+          <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="civility" id="optionsRadios1" value="Femme" required>
+            Femme
+          </label>
         </div>
         <div class="form-check col-3">
-            <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="civility" id="optionsRadios2" value="Homme" required>
-                Homme
-            </label>
+          <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="civility" id="optionsRadios2" value="Homme" required>
+            Homme
+          </label>
         </div>
-        </div>
-    </fieldset>
-</div>
-<div class="row">
-<div class="col-8"></div>
-<div class="col-4">
-  <button type="submit" name="enregistrer" class="btn btn-primary btn-lg">Enregistrer les données</button>
-  <!-- <a role="submit" class="btn btn-primary btn-lg" href="index.php">Enregistrer les données</a> -->
-</div>
-</div>
+    </div>
+  </fieldset>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button type="submit" name="enregistrer" class="btn btn-primary btn-lg">Enregistrer les données</button>
+  </div>
 </form>

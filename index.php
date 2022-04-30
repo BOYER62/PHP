@@ -12,27 +12,70 @@
     ?>
 
     <body>
-            <?php
-            include 'includes/header.inc.html';
-        //     
-        // } 
-
-            ?>
+        <?php
+            $user_agent = $_SERVER["HTTP_USER_AGENT"];
+            if(preg_match("/(android|webos|avantgo|iphone|ipod|ipad|bolt|boost|cricket|docomo|fone|hiptop|opera mini|mini|kitkat|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i",$user_agent ))
+            {
+                // echo "mobile device detected";
+            }
+            else{
+                // echo "mobile device not detected";
+                include 'includes/header.inc.html';
+                }
+            
+        ?>
 
         <div class="container">
-            <div class="row">
-                <div class="col-3">
-                <div class="d-grid gap-2">
-                                <a href="index.php" name="home" class="btn btn-lg btn-outline-primary" role="button">Home</a>
-                            </div>
+            <?php
+                $user_agent = $_SERVER["HTTP_USER_AGENT"];
+                if(preg_match("/(android|webos|avantgo|iphone|ipod|ipad|bolt|boost|cricket|docomo|fone|hiptop|opera mini|mini|kitkat|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i",$user_agent ))
+                {
+                    // echo "mobile device detected";
+                    echo '<div class="column">';
+                }
+                else{
+                    // echo "mobile device not detected";
+                    echo '<div class="row">';
+                }
+            ?>
+                
+                        <?php
+                            $user_agent = $_SERVER["HTTP_USER_AGENT"];
+                            if(preg_match("/(android|webos|avantgo|iphone|ipod|ipad|bolt|boost|cricket|docomo|fone|hiptop|opera mini|mini|kitkat|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i",$user_agent ))
+                            {
+                                // echo "mobile device detected";
+                                echo '<div class="col-12">';
+                                echo '<div class="d-grid gap-2">';
+                                echo '<a href="index.php" name="home" class="btn btn-lg btn-outline-primary" role="button">Home</a>';
+                            }
+                            else{
+                                // echo "mobile device not detected";
+                                echo '<div class="col-3">';
+                                echo '<div class="d-grid gap-2">';
+                                echo '<a href="index.php" name="home" class="btn btn-lg btn-outline-primary" role="button">Home</a>';
+                            }
+                        ?>
+                        
+                    </div>
                     <?php
                         if (isset($table)){                        
                             include 'includes/ul.inc.php';
                         }
                     ?>
                 </div>
-
-                <section class="col-9">
+                <?php
+                    $user_agent = $_SERVER["HTTP_USER_AGENT"];
+                    if(preg_match("/(android|webos|avantgo|iphone|ipod|ipad|bolt|boost|cricket|docomo|fone|hiptop|opera mini|mini|kitkat|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i",$user_agent ))
+                    {
+                        // echo "mobile device detected";
+                        echo '<section class="col-12">';
+                    }
+                    else{
+                        // echo "mobile device not detected";
+                        echo '<section class="col-9">';
+                    }
+                ?>            
+                
                     <?php
                         if(isset($_GET['add'])){
                             include "includes/form.inc.html";
@@ -60,49 +103,15 @@
                             echo '  <h2 class="text-center">Débogage</h2></br>
                                     <p>===>Lecture du tableau à l\'aide de la fonction print_r()</p>
                                     ';
-                        }
-                        elseif(isset($_GET['concatenation'])){
-                            echo ' <h2 class="text-center">Concaténation</h2></br>';
-                        }
-                        elseif(isset($_GET['boucle'])){
-                            echo ' <h2 class="text-center">Boucle</h2></br>';
-                        }
-                        elseif(isset($_GET['function'])){
-                            echo ' <h2 class="text-center">Fonction</h2></br>';
-                        }
-                        elseif(isset($_GET['supprimer'])){
-
-                        }
-                        else{
-                            echo '<a role="button" class="btn btn-primary btn-lg" href="index.php?add">Ajouter des données</a>';
-                        }
-                        
-                        
-                    ?>
-
-                    <?php
-                        if (isset($_GET['supprimer'])){
-                            echo '
-                            <div class="alert alert-danger text-center" role="alert">
-                                Données supprimer
-                            </div>';
-                            session_unset();
-                        }
-                        if (isset($_GET['debogage'])){
-                            
                             echo '<pre>';
                             print_r($table);
                             echo '<pre>';
                         }
-                        if (isset($_GET['concatenation'])){
+                        elseif(isset($_GET['concatenation'])){
+                            echo ' <h2 class="text-center">Concaténation</h2></br>';
                             echo '<h3>===>Construction d\'une phrase avec le contenu du tableau</h3>'; 
                                 $civility=$table['civility'];
                                 $civility = ($civility == 'Femme') ? 'Mme' : 'M';
-                                // if ($civility=='Femme'){
-                                //     $civility='Mme';
-                                // }else{
-                                //     $civility='M';
-                                // }
                                 echo 
                                 $civility.' '.$table['first_name'].' '.$table['last_name'];
                                 echo "</br>";
@@ -132,8 +141,8 @@
                                 echo
                                 "j'ai".' '.$table['age'].' '.'ans et je mesure'.' '.$table['size'].'m';
                         }
-
-                        if (isset($_GET['boucle'])){
+                        elseif(isset($_GET['boucle'])){
+                            echo ' <h2 class="text-center">Boucle</h2></br>';
                             echo '<h3>===>Lecture du tableau à l\'aide d\'une boucle foreach()</h3>';
                             $ligne=0;
                             foreach ($table as $key => $value){
@@ -141,8 +150,8 @@
                                 $ligne=$ligne+1;
                             }
                         }
-
-                        if (isset($_GET['function'])){
+                        elseif(isset($_GET['function'])){
+                            echo ' <h2 class="text-center">Fonction</h2></br>';
                             function readTable($t){
                                 $ligne=0;
                                 foreach ($t as $key => $value){
@@ -150,8 +159,19 @@
                                     $ligne=$ligne+1;
                                 }
                             }
-                            readTable($table);    
+                            readTable($table);
                         }
+                        elseif(isset($_GET['supprimer'])){
+                            echo '
+                            <div class="alert alert-danger text-center" role="alert">
+                                Données supprimer
+                            </div>';
+                            session_unset();
+                        }
+                        else{
+                            echo '<a role="button" class="btn btn-primary btn-lg" href="index.php?add">Ajouter des données</a>';
+                        }
+                        
                     ?>    
                 </section>
             </div>
