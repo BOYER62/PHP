@@ -3,14 +3,16 @@
     Ajouter des données
   </p>
 
-  <div class="form-group">
-    <label class="col-form-label mt-4" for="inputDefault"></label>
-    <input type="text" class="form-control" name="first_name" placeholder="Prénom" id="inputDefault">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Prenom">
+    <label for="first_name">Prenom</label>
   </div>
-  <div class="form-group">
-    <label class="col-form-label mt-4" for="inputDefault"></label>
-    <input type="text" class="form-control" name="last_name" placeholder="Nom" id="inputDefault">
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Nom">
+    <label for="last_name">nom</label>
   </div>
+
   <div class="form-group">
     <label class="col-form-label mt-4" for="inputDefault"></label>
     <input type="number" min="18" max="70" class="form-control" name="age" placeholder="Renseigner votre age" id="inputDefault">
