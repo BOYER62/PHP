@@ -79,8 +79,10 @@
                     <?php
                         if(isset($_GET['add'])){
                             include "includes/form.inc.html";
+                            echo'</form>';
                         }
                         elseif(isset($_POST['enregistrer'])){
+                            print_r($_SESSION['table']);
                             $prenom = $_POST['first_name'];
                             $nom = $_POST['last_name'];
                             $age = $_POST['age'];
@@ -168,8 +170,15 @@
                             </div>';
                             session_unset();
                         }
+                        elseif(isset($_GET['addmore'])){
+                            include 'includes/form2.inc.php';
+                        }
                         else{
-                            echo '<a role="button" class="btn btn-primary btn-lg" href="index.php?add">Ajouter des données</a>';
+                            
+                            echo '<a role="button" class="btn btn-primary btn-lg me-2" href="index.php?add">Ajouter des données</a>';
+                            
+                            echo '<a role="button" class="btn btn-secondary btn-lg" href="index.php?addmore">Ajouter plus de données</a>';
+                            
                         }
                         
                     ?>    
