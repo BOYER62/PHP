@@ -86,7 +86,40 @@
                             echo'</form>';
                         }
                         elseif(isset($_POST['enregistrer'])){
-                            print_r($table);
+                            $tabExtension = explode('.', $table['img']['name']);
+                            $extension = strtolower(end($tabExtension));
+                            //Tableau des extensions que l'on accepte
+                            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+                            print_r($table['img']['tmp_name']);
+                            print_r($table['img']['name']);
+                            if(in_array($extension, $extensions)){
+                                move_uploaded_file($table['img']['tmp_name'], './uploaded/'.$table['img']['name']);
+                            }
+                            else{
+                                echo '
+                                <div class="alert alert-warning text-center" role="alert">
+                                    Extention'.' '.$extension.' non prise en charge
+                                </div>';
+                            }
+
+                            if(in_array($extension, $extensions) && $table['img']['size'] <= 2000000){
+                                move_uploaded_file($table['img']['tmp_name'], './uploaded/'.$table['img']['name']);
+                            }
+                            else{
+                                echo '
+                                <div class="alert alert-warning text-center" role="alert">
+                                    La taille de l\'image doit être inférieure à 2Mo
+                                </div>';
+                            }
+                            if(in_array($extension, $extensions) && $table['img']['size'] <= 2000000 && $table['img']['error'] == 0){
+                                move_uploaded_file($table['img']['tmp_name'], './uploaded/'.$table['img']['name']);;   
+                            }
+                            else{
+                                echo '
+                                <div class="alert alert-warning text-center" role="alert">
+                                    error : 1
+                                </div>';
+                            }
                             $prenom = $_POST['first_name'];
                             $nom = $_POST['last_name'];
                             $age = $_POST['age'];
