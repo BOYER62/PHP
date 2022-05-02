@@ -79,21 +79,47 @@
                     <?php
                         if(isset($_GET['add'])){
                             include "includes/form.inc.html";
+                            echo '
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="submit" name="enregistrer" class="btn btn-primary btn-lg">Enregistrer les données</button>
+                                </div>';
                             echo'</form>';
                         }
                         elseif(isset($_POST['enregistrer'])){
-                            print_r($_SESSION['table']);
+                            print_r($table);
                             $prenom = $_POST['first_name'];
                             $nom = $_POST['last_name'];
                             $age = $_POST['age'];
                             $size = $_POST['size'];
                             $civility = $_POST['civility'];
+                            $html = $_POST['html'];
+                            $css = $_POST['css'];
+                            $javascript = $_POST['javascript'];
+                            $php = $_POST['php'];
+                            $mysql = $_POST['mysql'];
+                            $bootstrap = $_POST['bootstrap'];
+                            $symfony = $_POST['symfony'];
+                            $reac = $_POST['reac'];
+                            $color = $_POST['color'];
+                            $dob = $_POST['dob'];
+                            $img = $_FILES['img'];
                             $table = array (
                             "first_name" => $prenom,
                             "last_name" => $nom,
                             "age" => $age,
                             "size" => $size,
                             "civility" => $civility,
+                            "html" => $html,
+                            "css" => $css,
+                            "javascript" => $javascript,
+                            "php" => $php,
+                            "mysql" => $mysql,
+                            "bootstrap" => $bootstrap,
+                            "symfony" => $symfony,
+                            "reac" => $reac,
+                            "color" => $color,
+                            "dob" => $dob,
+                            "img" => $img,
                             );
                             $_SESSION['table'] = $table;
                             echo '
