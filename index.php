@@ -79,6 +79,9 @@
                 
                     <?php
                         if(isset($_GET['add'])){
+                            echo '<p class="h1 text-center">
+                                Ajouter des données
+                            </p>';
                             include "includes/form.inc.html";
                             echo '
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -129,17 +132,14 @@
                             $extension = strtolower(end($tabExtension));
                             //Tableau des extensions que l'on accepte
                             $extensions = ['jpg', 'png', 'jpeg', 'gif'];
-                            if (isset($extension)){
-                            $booleen = in_array($extension, $extensions);
-                            }
-                            else{
-                                $booleen == null;
-                            }
+                            $booleen = (in_array($extension,$extensions));
                             print_r($_FILES['img']);
+                            echo '<br>';
                             print_r($extension);
-                            echo 'valeur booleennes :'.print_r($booleen);
+                            echo '<br>';
+                            print_r($booleen);
                             switch(isset($_FILES['img'])){
-                                case($booleen == false):
+                                case(!isset($extension) and isset($_FILES['img'])):
                                     echo '
                                  <div class="alert alert-warning text-center" role="alert">
                                      Extention'.' '.$extension.' non prise en charge
@@ -157,7 +157,7 @@
                                      error : 1
                                  </div>';
                                     break;
-                                case($booleen == true):
+                                case(isset($booleen)):
                                     move_uploaded_file($_FILES['img']['tmp_name'], "./uploaded/".$_FILES['img']['name']);
                                     echo '
                                         <div class="alert alert-success text-center" role="alert">
@@ -224,11 +224,16 @@
                             $table = array_filter($table);
                             foreach ($table as $key => $value){
                                 if($key=='img'){
+                                    echo 'à la ligne n°'.' '.$ligne.' '.'correspont la clé'.' '.$key.' '.'et contient';
                                     break;
                                 }
                                 echo 'à la ligne n°'.' '.$ligne.' '.'correspont la clé'.' '.$key.' '.'et contient'.' '.$value.'<pre></pre>';
                                 $ligne=$ligne+1;
                             }
+                            
+                            echo '<figure>';
+                            echo "<img w-100 src='uploaded/".$table['img']['name']."'>";
+                            echo '</figure>';
                         }
                         // -------------------------------------------------------Fonction-----------------------------------------
                         elseif(isset($_GET['function'])){

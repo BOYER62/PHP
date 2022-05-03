@@ -1,4 +1,7 @@
 <div class="row">
+    <p class="h1 text-center">
+        Ajouter plus de données
+    </p>
     <div class="card col-md-7 mx-auto my-1">
         <?php
             include 'includes/form.inc.html';
