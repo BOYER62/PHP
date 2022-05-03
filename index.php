@@ -127,31 +127,28 @@
                             "img" => $img,
                             );
                             $_SESSION['table'] = $table;
+                            $table = array_filter($table);
 
                             $tabExtension = explode('.', $table['img']['name']);
                             $extension = strtolower(end($tabExtension));
                             //Tableau des extensions que l'on accepte
                             $extensions = ['jpg', 'png', 'jpeg', 'gif'];
-                            $booleen = (in_array($extension,$extensions));
-                            print_r($_FILES['img']);
-                            echo '<br>';
-                            print_r($extension);
-                            echo '<br>';
-                            print_r($booleen);
-                            switch(isset($_FILES['img'])){
-                                case(!isset($extension) and isset($_FILES['img'])):
+                            $booleen = in_array($extension,$extensions,true);
+                            
+                            switch(isset($table['img'])){
+                                case(empty($booleen) and isset($extension)):
                                     echo '
                                  <div class="alert alert-warning text-center" role="alert">
                                      Extention'.' '.$extension.' non prise en charge
                                  </div>';
                                     break;
-                                case($_FILES['size']>=2000000):
+                                case($table['img']['size'] > 2000000):
                                     echo '
                                  <div class="alert alert-warning text-center" role="alert">
                                      La taille de l\'image doit être inférieure à 2Mo
                                  </div>';
                                     break;
-                                case($_FILES['error']):
+                                case($table['img']['error'] =="1" and isset($extension)):
                                     echo '
                                  <div class="alert alert-warning text-center" role="alert">
                                      error : 1
