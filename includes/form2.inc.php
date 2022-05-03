@@ -57,18 +57,18 @@
             </div>
         </fieldset>
         <label for="exampleColorInput" class="form-label">Couleur Préférée</label>
-        <input type="color" class="form-control form-control-color" id="color" value="color" name="color"  title="Choose your color">
+        <input type="color" class="form-control form-control-color" id="color" value="color" name="color"  title="Choose your color" required>
         <label for="dob">Date de naissance</label>
 
-        <input type="datetime-local" id="dob"
+        <input type="date" id="dob"
             name="dob" value="dob" 
-            min="2018-06-07T00:00" max="2018-06-14T00:00">
+            min="1975-01-01T00:00" required>
 
         
     </div>
     <div class="card col-11 mx-auto my-1">
         <label for="img" class="form-label">Joindre une image(jpg ou png)</label>
-        <input class="form-control" type="file" name="img" id="img">
+        <input class="form-control" type="file" name="img" id="img" required>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" name="enregistrer" class="btn btn-primary btn-lg">Enregistrer les données</button>
         </div>

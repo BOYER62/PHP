@@ -12,6 +12,7 @@
     ?>
 
     <body>
+        <!-- affichage du header sur pc mais pas sur le telephone ------------------------------------------------------ -->
         <?php
             $user_agent = $_SERVER["HTTP_USER_AGENT"];
             if(preg_match("/(android|webos|avantgo|iphone|ipod|ipad|bolt|boost|cricket|docomo|fone|hiptop|opera mini|mini|kitkat|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i",$user_agent ))
@@ -86,40 +87,8 @@
                             echo'</form>';
                         }
                         elseif(isset($_POST['enregistrer'])){
-                            $tabExtension = explode('.', $table['img']['name']);
-                            $extension = strtolower(end($tabExtension));
-                            //Tableau des extensions que l'on accepte
-                            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
-                            print_r($table['img']['tmp_name']);
-                            print_r($table['img']['name']);
-                            if(in_array($extension, $extensions)){
-                                move_uploaded_file($table['img']['tmp_name'], './uploaded/'.$table['img']['name']);
-                            }
-                            else{
-                                echo '
-                                <div class="alert alert-warning text-center" role="alert">
-                                    Extention'.' '.$extension.' non prise en charge
-                                </div>';
-                            }
+                            
 
-                            if(in_array($extension, $extensions) && $table['img']['size'] <= 2000000){
-                                move_uploaded_file($table['img']['tmp_name'], './uploaded/'.$table['img']['name']);
-                            }
-                            else{
-                                echo '
-                                <div class="alert alert-warning text-center" role="alert">
-                                    La taille de l\'image doit être inférieure à 2Mo
-                                </div>';
-                            }
-                            if(in_array($extension, $extensions) && $table['img']['size'] <= 2000000 && $table['img']['error'] == 0){
-                                move_uploaded_file($table['img']['tmp_name'], './uploaded/'.$table['img']['name']);;   
-                            }
-                            else{
-                                echo '
-                                <div class="alert alert-warning text-center" role="alert">
-                                    error : 1
-                                </div>';
-                            }
                             $prenom = $_POST['first_name'];
                             $nom = $_POST['last_name'];
                             $age = $_POST['age'];
@@ -155,19 +124,64 @@
                             "img" => $img,
                             );
                             $_SESSION['table'] = $table;
+
+                            $tabExtension = explode('.', $table['img']['name']);
+                            $extension = strtolower(end($tabExtension));
+                            //Tableau des extensions que l'on accepte
+                            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+                            if (isset($extension)){
+                            $booleen = in_array($extension, $extensions);
+                            }
+                            else{
+                                $booleen == null;
+                            }
+                            print_r($_FILES['img']);
+                            print_r($extension);
+                            echo 'valeur booleennes :'.print_r($booleen);
+                            switch(isset($_FILES['img'])){
+                                case($booleen == false):
+                                    echo '
+                                 <div class="alert alert-warning text-center" role="alert">
+                                     Extention'.' '.$extension.' non prise en charge
+                                 </div>';
+                                    break;
+                                case($_FILES['size']>=2000000):
+                                    echo '
+                                 <div class="alert alert-warning text-center" role="alert">
+                                     La taille de l\'image doit être inférieure à 2Mo
+                                 </div>';
+                                    break;
+                                case($_FILES['error']):
+                                    echo '
+                                 <div class="alert alert-warning text-center" role="alert">
+                                     error : 1
+                                 </div>';
+                                    break;
+                                case($booleen == true):
+                                    move_uploaded_file($_FILES['img']['tmp_name'], "./uploaded/".$_FILES['img']['name']);
+                                    echo '
+                                        <div class="alert alert-success text-center" role="alert">
+                                            Données sauvegardées
+                                        </div>';
+                            }
+                            if (!isset($_FILES['img'])){
                             echo '
                             <div class="alert alert-success text-center" role="alert">
                                 Données sauvegardées
-                            </div>';    
+                            </div>';   
+                        } 
                         }
+                        // ------------------------------------------------Debogage------------------------------------------------
                         elseif(isset($_GET['debogage'])){
                             echo '  <h2 class="text-center">Débogage</h2></br>
                                     <p>===>Lecture du tableau à l\'aide de la fonction print_r()</p>
                                     ';
+                            $table = array_filter($table);
                             echo '<pre>';
                             print_r($table);
                             echo '<pre>';
                         }
+                        // --------------------------------------------------Concatenation----------------------------------------
                         elseif(isset($_GET['concatenation'])){
                             echo ' <h2 class="text-center">Concaténation</h2></br>';
                             echo '<h3>===>Construction d\'une phrase avec le contenu du tableau</h3>'; 
@@ -202,26 +216,43 @@
                                 echo
                                 "j'ai".' '.$table['age'].' '.'ans et je mesure'.' '.$table['size'].'m';
                         }
+                        // -------------------------------------------------------Boucle-----------------------------------------
                         elseif(isset($_GET['boucle'])){
                             echo ' <h2 class="text-center">Boucle</h2></br>';
                             echo '<h3>===>Lecture du tableau à l\'aide d\'une boucle foreach()</h3>';
                             $ligne=0;
+                            $table = array_filter($table);
                             foreach ($table as $key => $value){
+                                if($key=='img'){
+                                    break;
+                                }
                                 echo 'à la ligne n°'.' '.$ligne.' '.'correspont la clé'.' '.$key.' '.'et contient'.' '.$value.'<pre></pre>';
                                 $ligne=$ligne+1;
                             }
                         }
+                        // -------------------------------------------------------Fonction-----------------------------------------
                         elseif(isset($_GET['function'])){
                             echo ' <h2 class="text-center">Fonction</h2></br>';
                             function readTable($t){
                                 $ligne=0;
                                 foreach ($t as $key => $value){
+                                    if($key=='img'){
+                                        echo 'à la ligne n°'.' '.$ligne.' '.'correspont la clé'.' '.$key.' '.'et contient';
+                                        
+                                        break;
+                                    }
                                     echo 'à la ligne n°'.' '.$ligne.' '.'correspont la clé'.' '.$key.' '.'et contient'.' '.$value.'<pre></pre>';
                                     $ligne=$ligne+1;
                                 }
                             }
+                            $table = array_filter($table);  
                             readTable($table);
+                            echo '<figure>';
+                            echo "<img w-100 src='uploaded/".$table['img']['name']."'>";
+                            echo '</figure>';
+                            
                         }
+                        // -------------------------------------------------------Supprimer---------------------------------
                         elseif(isset($_GET['supprimer'])){
                             echo '
                             <div class="alert alert-danger text-center" role="alert">
