@@ -134,13 +134,13 @@
                                 
                 // ---------------------------------------------------------traitement des erreurs--------
                 switch(isset($table)){
-                    case(isset($table['img']['name']) && ($booleen==0)):
+                    case(isset($table['img']['name']) && $table['img']['error']==0 && $booleen==0):
                         echo '
                         <div class="alert alert-warning text-center" role="alert">
                             Extention'.' '.$extension.' non prise en charge
                         </div>';
                     break;
-                    case(isset($table['img']['size']) && ($table['img']['size'] > 2000000)):
+                    case(($table['img']['error']==0) && ($table['img']['size'] > 2000000)):
                         echo '
                         <div class="alert alert-warning text-center" role="alert">
                             La taille de l\'image doit être inférieure à 2Mo
